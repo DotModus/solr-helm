@@ -35,7 +35,7 @@ Define the name of the headless service for solr
 Define the name of the client service for solr
 */}}
 {{- define "solr.service-name" -}}
-{{- printf "%s-%s" (include "solr.fullname" .) "svc" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s" (include "solr.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*

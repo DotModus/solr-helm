@@ -18,7 +18,7 @@ spec:
   updateStrategy:
     {{ toYaml .Values.updateStrategy | indent 4}}
   template:
-    metadata:
+    metadata:  
       labels:
         app: "{{ template "solr.name" . }}"
         release: "{{ .Release.Name }}"
@@ -56,21 +56,21 @@ spec:
           command:
             - 'sh'
             - '-c'
-            - |
-              COUNTER=0;
-              while [  $COUNTER -lt 120 ]; do
-                for i in {{ $vals := . -}}{{ range $i, $e := until ( int .Values.zookeeper.replicaCount ) -}}
-                  "{{- template "solr.zookeeper-name" $vals }}-{{ $i }}.{{ template "solr.zookeeper-service-name" $vals }}" {{ end -}};
-                  do mode=$(echo srvr | nc $i 2181 | grep "Mode");
-                    if [ "$mode" == "Mode: leader" ] || [ "$mode" == "Mode: standalone" ]; then
-                      exit 0;
-                    fi;
-                  done;
-                let COUNTER=COUNTER+1;
-                sleep 2;
-              done;
-              echo "Did NOT see a ZK leader after 240 secs!";
-              exit 1;
+            - 'sleep 200'
+          #     COUNTER=0;
+          #     while [  $COUNTER -lt 120 ]; do
+          #       for i in {{ $vals := . -}}{{ range $i, $e := until 1 }}
+          #         "{{- template "solr.zookeeper-name" $vals }}-{{ $i }}.{{ template "solr.zookeeper-service-name" $vals }}" {{ end -}};
+          #         do mode=$(echo srvr | nc $i 2181 | grep "Mode");
+          #           if [ "$mode" == "Mode: leader" ] || [ "$mode" == "Mode: standalone" ]; then
+          #             exit 0;
+          #           fi;
+          #         done;
+          #       let COUNTER=COUNTER+1;
+          #       sleep 2;
+          #     done;
+          #     echo "Did NOT see a ZK leader after 240 secs!";
+          #     exit 1;
         - name: "cp-solr-xml"
           image: busybox:latest
           command: ['sh', '-c', 'cp /tmp/solr.xml /tmp-config/solr.xml']
