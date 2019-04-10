@@ -124,6 +124,20 @@ spec:
 {{ end }}
 {{ end }}
       containers:
+        - name: solr-side-car
+          image: "{{ .Values.sidecar.name }}:{{ .Values.sidecar.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env: 
+            - name: "SOLR_PORT"
+              value: "{{ .Values.port }}"
+            - name: "POD_HOSTNAME"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: "SOLR_HOST"
+              value: "$(POD_HOSTNAME).{{ template "solr.headless-service-name" . }}"
+          resources:
+            {}
         - name: solr
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -202,3 +216,22 @@ spec:
         resources:
           requests:
             storage: {{ .Values.volumeClaimTemplates.storageSize }}
+
+---
+
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ include "solr.fullname" . }}-hpa"
+spec:
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: External
+    external:
+      metricName: custom.googleapis.com|fusion_hpametric_1
+      targetValue: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: {{ include "solr.fullname" . }}

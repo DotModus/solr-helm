@@ -1,5 +1,9 @@
 ---
 
+sidecar:
+  name: "us.gcr.io/lucidworks-helm-fusion/hpa-metrics"
+  tag: "latest"
+
 # Which port should solr listen on
 port: 8983
 
@@ -82,7 +86,9 @@ exporter:
   enabled: false # Deploy the exporter
   configFile: "/opt/solr/contrib/prometheus-exporter/conf/solr-exporter-config.xml" # The config file to point the exporter to
   updateStrategy: {}
-  podAnnotations: {} # Annotations to apply to the exporter pod
+  podAnnotations: {
+    prometheus.io/scrape: "true"
+  } # Annotations to apply to the exporter pod
   resources: {} # Resource limits for the exporter
   port: 9983 # The port to run the exporter on
   threads: 7 # The number of threads the exporter uses to query solr

@@ -17,3 +17,4 @@ spec:
     app: "{{ template "solr.name" . }}"
     release: "{{ .Release.Name }}"
     component: "server"
+
