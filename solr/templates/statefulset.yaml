@@ -130,12 +130,6 @@ spec:
           env: 
             - name: "SOLR_PORT"
               value: "{{ .Values.port }}"
-            - name: "POD_HOSTNAME"
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: "SOLR_HOST"
-              value: "$(POD_HOSTNAME).{{ template "solr.headless-service-name" . }}"
           resources:
             {}
         - name: solr
