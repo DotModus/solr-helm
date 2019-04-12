@@ -10,7 +10,6 @@ data:
   solr.xml: |
     <?xml version="1.0" encoding="UTF-8" ?>
     <solr>
-      <jmx />
       <jmx serviceUrl="service:jmx:rmi:///jndi/rmi://localhost:9999/solrjmx" />
       <solrcloud>
         <str name="host">${host:}</str>
