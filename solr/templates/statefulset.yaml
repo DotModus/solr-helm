@@ -130,6 +130,10 @@ spec:
           env: 
             - name: "SOLR_PORT"
               value: "{{ .Values.port }}"
+            - name: "PROXY_PORT"
+              value: "8764"
+            - name: "METRICS_MODE"
+              value: "MetricsApi"
           resources:
             {}
         - name: solr
