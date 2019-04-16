@@ -134,6 +134,16 @@ spec:
               value: "8764"
             - name: "METRICS_MODE"
               value: "MetricsApi"
+            - name: FUSION_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: authsecrets
+                  key: username
+            - name: FUSION_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: authsecrets
+                  key: password
           resources:
             {}
         - name: solr
