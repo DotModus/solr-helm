@@ -270,8 +270,8 @@ podAnnotations:
 
 # Node label-values required to run solr pods.
 nodeSelector:
-  key: {}
-  value: {}
+  key: ""
+  value: ""
 
 # Affinity group rules or the solr pods
 affinity: {}
