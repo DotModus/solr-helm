@@ -3,6 +3,7 @@
 sidecar:
   name: "us.gcr.io/lucidworks-helm-fusion/hpa-metrics"
   tag: "latest"
+  env: {}
 
 # Which port should solr listen on
 port: 8983
