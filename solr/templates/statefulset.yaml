@@ -138,6 +138,8 @@ spec:
               value: "8764"
             - name: "METRICS_MODE"
               value: "MetricsApi"
+            - name: "PROJECT_NAME"
+              value: "{{ .Values.sidecar.env.value }}"
             - name: FUSION_ADMIN_USERNAME
               valueFrom:
                 secretKeyRef:
