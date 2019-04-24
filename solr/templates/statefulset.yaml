@@ -28,9 +28,6 @@ spec:
     spec:
       securityContext:
         fsGroup: 8983
-{{- if .Values.nodeSelector }}
-      nodeSelector:
-        {{ .Values.nodeSelector.key }}: {{ .Values.nodeSelector.value }}
       affinity:
 {{ tpl (toYaml .Values.affinity) .  | indent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
@@ -137,8 +134,6 @@ spec:
               value: "8764"
             - name: "METRICS_MODE"
               value: "MetricsApi"
-            - name: "PROJECT_NAME"
-              value: "{{ .Values.sidecar.project }}"
             - name: FUSION_ADMIN_USERNAME
               valueFrom:
                 secretKeyRef:
