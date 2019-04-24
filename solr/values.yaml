@@ -269,7 +269,9 @@ podAnnotations:
   sidecar.istio.io/inject: "true"
 
 # Node label-values required to run solr pods.
-nodeSelector: {}
+nodeSelector:
+  key: {}
+  value: {}
 
 # Affinity group rules or the solr pods
 affinity: {}

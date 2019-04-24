@@ -28,6 +28,10 @@ spec:
     spec:
       securityContext:
         fsGroup: 8983
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{ .Values.nodeSelector.key }}: {{ .Values.nodeSelector.value }}
+{{- end }}
       affinity:
 {{ tpl (toYaml .Values.affinity) .  | indent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
