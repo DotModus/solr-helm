@@ -88,6 +88,13 @@ service:
   type: ClusterIP
   annotations: {}
 
+jmx:
+  service:
+    name: "jmx"
+    port: 9999
+    type: ClusterIP
+    annotations: {}
+
 # Configuration for the solr prometheus exporter
 exporter:
   enabled: false # Deploy the exporter
