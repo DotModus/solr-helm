@@ -160,6 +160,8 @@ spec:
           ports:
           - containerPort: {{ .Values.port }}
             name: solr-client
+          - containerPort: {{ .Values.jmx.service.port }}
+            name: jmx-metrics
           env:
             - name: "SOLR_JAVA_MEM"
               value: "{{ .Values.javaMem }}"
