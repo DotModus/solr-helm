@@ -163,6 +163,10 @@ spec:
           - containerPort: {{ .Values.jmx.service.port }}
             name: jmx-metrics
           env:
+            - name: "DD_AGENT_HOST"
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
             - name: "SOLR_JAVA_MEM"
               value: "{{ .Values.javaMem }}"
             - name: "SOLR_HOME"
