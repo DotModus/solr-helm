@@ -241,11 +241,29 @@ spec:
   minReplicas: 1
   maxReplicas: 5
   metrics:
-  - type: External
-    external:
-      metricName: custom.googleapis.com|fusion_hpametric_1
+  - type: Object
+    object:
+      metricName: fusion_hpametric_2
+      target:
+        apiVersion: custom.metrics.k8s.io/v1beta1
+        kind: Value
+        name: fusion_hpametric_2
       targetValue: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: StatefulSet
     name: {{ include "solr.fullname" . }}
+
+
+
+      - type: Object
+        object:
+          metric:
+            name: node_sockstat_UDP_inuse
+          describedObject:
+            apiVersion: extensions/v1beta1
+              kind: Job
+            name: your-job-name
+          target:
+            kind: Value
+            value: 20
